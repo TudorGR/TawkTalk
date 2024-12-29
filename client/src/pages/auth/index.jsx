@@ -4,14 +4,72 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useState } from "react";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
+import { LOGIN_ROUTE, SIGNUP_ROUTE } from "@/utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = async () => {};
-  const handleSignup = async () => {};
+  const validateLogin = () => {
+    if (!email.length) {
+      toast.error("Email is required");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required");
+      return false;
+    }
+    return true;
+  };
+
+  const validateSignup = () => {
+    if (!email.length) {
+      toast.error("Email is required");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password should be same");
+      return false;
+    }
+    return true;
+  };
+
+  const handleLogin = async () => {
+    if (validateLogin()) {
+      const res = await apiClient.post(
+        LOGIN_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      if (res.data.user.id) {
+        if (res.data.user.profileSetup) navigate("/chat");
+        else navigate("/profile");
+      }
+      console.log(res);
+    }
+  };
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const res = await apiClient.post(
+        SIGNUP_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      if (res.status === 201) {
+        navigate("/profile");
+      }
+      console.log({ res });
+    }
+  };
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
@@ -27,7 +85,7 @@ const Auth = () => {
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
-            <Tabs className="w-3/4">
+            <Tabs className="w-3/4" defaultValue="login">
               <TabsList className="bg-transparent rounded-none w-full">
                 <TabsTrigger
                   value="login"
