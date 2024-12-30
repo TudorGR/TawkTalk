@@ -8,9 +8,11 @@ import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client";
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
+import { useAppStore } from "@/store";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const { setUserInfo } = useAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,12 +47,9 @@ const Auth = () => {
 
   const handleLogin = async () => {
     if (validateLogin()) {
-      const res = await apiClient.post(
-        LOGIN_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
+      const res = await apiClient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true });
       if (res.data.user.id) {
+        setUserInfo(res.data.user);
         if (res.data.user.profileSetup) navigate("/chat");
         else navigate("/profile");
       }
@@ -59,12 +58,9 @@ const Auth = () => {
   };
   const handleSignup = async () => {
     if (validateSignup()) {
-      const res = await apiClient.post(
-        SIGNUP_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
+      const res = await apiClient.post(SIGNUP_ROUTE, { email, password }, { withCredentials: true });
       if (res.status === 201) {
+        setUserInfo(res.data.user);
         navigate("/profile");
       }
       console.log({ res });
@@ -80,67 +76,29 @@ const Auth = () => {
               <h1 className="text-5xl font-bold md:text-6xl">Welcome</h1>
               <img src={Victory} alt="Emoji" className="h-[100px]" />
             </div>
-            <p className="font-medium text-center">
-              Fill in the details to get started with the chat app.
-            </p>
+            <p className="font-medium text-center">Fill in the details to get started with the chat app.</p>
           </div>
           <div className="flex items-center justify-center w-full">
             <Tabs className="w-3/4" defaultValue="login">
               <TabsList className="bg-transparent rounded-none w-full">
-                <TabsTrigger
-                  value="login"
-                  className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-1/2 data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300"
-                >
+                <TabsTrigger value="login" className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-1/2 data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300">
                   Login
                 </TabsTrigger>
-                <TabsTrigger
-                  value="signup"
-                  className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-1/2 data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300"
-                >
+                <TabsTrigger value="signup" className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-1/2 data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300">
                   Signup
                 </TabsTrigger>
               </TabsList>
               <TabsContent className="flex flex-col gap-5 mt-10" value="login">
-                <Input
-                  placeholder="Email"
-                  type="Email"
-                  className="rounded-full p-6"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                  placeholder="Password"
-                  type="Password"
-                  className="rounded-full p-6"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <Input placeholder="Email" type="Email" className="rounded-full p-6" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input placeholder="Password" type="Password" className="rounded-full p-6" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <Button className="rounded-full p-6" onClick={handleLogin}>
                   Login
                 </Button>
               </TabsContent>
               <TabsContent className="flex flex-col gap-5" value="signup">
-                <Input
-                  placeholder="Email"
-                  type="Email"
-                  className="rounded-full p-6"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                  placeholder="Password"
-                  type="Password"
-                  className="rounded-full p-6"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Input
-                  placeholder="Confirm Password"
-                  type="Password"
-                  className="rounded-full p-6"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                <Input placeholder="Email" type="Email" className="rounded-full p-6" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input placeholder="Password" type="Password" className="rounded-full p-6" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input placeholder="Confirm Password" type="Password" className="rounded-full p-6" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 <Button className="rounded-full p-6" onClick={handleSignup}>
                   Signup
                 </Button>

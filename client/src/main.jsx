@@ -5,8 +5,10 @@ import App from "./App.jsx";
 import { Toaster } from "./components/ui/sonner";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
+  <>
     <App />
-    <Toaster />
-  </StrictMode>
+    <Toaster closed />
+  </>
+  // </StrictMode>
 );
