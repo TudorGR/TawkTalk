@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./components/ui/button";
-import { BrowserRouter, Navigate, Route, Routes, useSearchParams } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useSearchParams,
+} from "react-router-dom";
 import Auth from "./pages/auth";
 import Chat from "./pages/chat";
 import Profile from "./pages/profile";
@@ -27,13 +33,14 @@ function App() {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const res = await apiClient.get(GET_USER_INFO, { withCredentials: true });
+        const res = await apiClient.get(GET_USER_INFO, {
+          withCredentials: true,
+        });
         if (res.status === 200 && res.data.id) {
           setUserInfo(res.data);
         } else {
           setUserInfo(undefined);
         }
-        console.log({ res });
       } catch (error) {
         setUserInfo(undefined);
       } finally {
