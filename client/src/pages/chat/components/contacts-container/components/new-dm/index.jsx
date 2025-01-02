@@ -16,8 +16,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { animationDefaultOptions } from "@/lib/utils";
-import Lottie from "react-lottie";
 import { apiClient } from "@/lib/api-client";
 import { SEARCH_CONTACTS_ROUTE } from "@/utils/constants";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -129,12 +127,6 @@ const NewDM = () => {
           )}
           {searchedContacts.length <= 0 && (
             <div className="flex-1 mt-5 md:mt-0 md:flex flex-col justify-center items-center duration-1000 transition-all">
-              <Lottie
-                isClickToPauseDisabled={true}
-                height={100}
-                width={100}
-                options={animationDefaultOptions}
-              />
               <div className="text-opacity-80 text-white flex flex-col gap-5 items-center mt-5 lg:text-2xl text-xl transition-all duration-300 text-center">
                 <h3 className="poppins-medium">
                   Search new

@@ -7,9 +7,16 @@ import { useState, useRef, useEffect } from "react";
 import { GrAttachment } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
 import { RiEmojiStickerLine } from "react-icons/ri";
+import { toast } from "sonner";
 
 const MessageBar = () => {
-  const { selectedChatType, selectedChatData, userInfo } = useAppStore();
+  const {
+    selectedChatType,
+    selectedChatData,
+    userInfo,
+    setIsUploading,
+    setFileUploadProgress,
+  } = useAppStore();
   const fileInputRef = useRef();
   const socket = useSocket();
   const emojiRef = useRef();
@@ -50,14 +57,26 @@ const MessageBar = () => {
     }
   };
   const handleAttachmentChange = async (event) => {
+    const FILE_SIZE_LIMIT = 5 * 1024 * 1024;
+
     try {
       const file = event.target.files[0];
       if (file) {
+        if (file.size > FILE_SIZE_LIMIT) {
+          toast("File size exceeds the 5 MB limit.");
+          return;
+        }
+
         const formData = new FormData();
         formData.append("file", file);
+        setIsUploading(true);
         const res = await apiClient.post(UPLOAD_FILE_ROUTE, formData, {
           withCredentials: true,
+          onUploadProgress: (data) => {
+            setFileUploadProgress(Math.round((100 * data.loaded) / data.total));
+          },
         });
+        setIsUploading(false);
 
         if (res.status === 200 && res.data) {
           if (selectedChatType === "contact") {
@@ -72,6 +91,7 @@ const MessageBar = () => {
         }
       }
     } catch (error) {
+      setIsUploading(false);
       console.log(error);
     }
   };
