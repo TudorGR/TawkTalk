@@ -1,7 +1,7 @@
 import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
-import { renameSync, unlinkSync } from "fs";
+// import { unlinkSync } from "fs";
 
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
@@ -125,55 +125,42 @@ export const updateProfile = async (req, res, next) => {
   }
 };
 
-export const addProfileImage = async (req, res, next) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send("File is required");
-    }
+// Comment out the function that handles file uploads
+// export const addProfileImage = async (req, res, next) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).send("File is required");
+//     }
+//     // File upload logic here
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).send("Internal Server Error");
+//   }
+// };
 
-    const date = Date.now();
-    let fileName = "uploads/profiles/" + date + req.file.originalname;
-    renameSync(req.file.path, fileName);
+// Comment out the function that handles file deletions
+// export const removeProfileImage = async (req, res, next) => {
+//   try {
+//     const { userId } = req;
+//     const user = await User.findById(userId);
 
-    const userData = await User.findByIdAndUpdate(
-      req.userId,
-      {
-        image: fileName,
-      },
-      { new: true, runValidators: true }
-    );
+//     if (!user) {
+//       return res.status(404).send("User not found");
+//     }
 
-    return res.status(200).json({
-      image: userData.image,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send("Internal Server Error");
-  }
-};
+//     if (user.image) {
+//       unlinkSync(user.image);
+//     }
 
-export const removeProfileImage = async (req, res, next) => {
-  try {
-    const { userId } = req;
-    const user = await User.findById(userId);
+//     user.image = null;
+//     await user.save();
 
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-
-    if (user.image) {
-      unlinkSync(user.image);
-    }
-
-    user.image = null;
-    await user.save();
-
-    return res.status(200).send("Profile image removed");
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send("Internal Server Error");
-  }
-};
+//     return res.status(200).send("Profile image removed");
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).send("Internal Server Error");
+//   }
+// };
 
 export const logOut = async (req, res, next) => {
   try {
