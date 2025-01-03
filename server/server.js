@@ -23,6 +23,8 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
 
