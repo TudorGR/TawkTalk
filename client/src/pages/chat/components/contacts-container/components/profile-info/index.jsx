@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 import { HOST, LOGOUT_ROUTE } from "@/utils/constants";

@@ -5,7 +5,8 @@ import { HOST } from "@/utils/constants";
 import { getColor } from "@/lib/utils";
 
 const ChatHeader = () => {
-  const { closeChat, selectedChatData, selectedChatType } = useAppStore();
+  const { closeChat, selectedChatData, selectedChatType, onlineUsers } =
+    useAppStore();
 
   return (
     <div className="h-[10vh] border-b-2 border-[#2f303b] flex items-center justify-between px-20">
@@ -38,11 +39,26 @@ const ChatHeader = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className="flex flex-col">
             {selectedChatType === "channel" && selectedChatData.name}
             {selectedChatType === "contact" && selectedChatData.firstName
               ? `${selectedChatData.firstName} ${selectedChatData.lastName}`
               : selectedChatData.email}
+            {selectedChatType === "contact" ? (
+              onlineUsers.includes(selectedChatData._id) ? (
+                <span className=" flex items-center gap-1">
+                  <span className=" h-3 w-3 bg-green-700 rounded-full"></span>
+                  <span className="text-neutral-500">online</span>
+                </span>
+              ) : (
+                <span className=" flex items-center gap-1">
+                  <span className=" h-3 w-3 bg-red-700 rounded-full"></span>
+                  <span className="text-neutral-500">offline</span>
+                </span>
+              )
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="flex items-center justify-center gap-5">
