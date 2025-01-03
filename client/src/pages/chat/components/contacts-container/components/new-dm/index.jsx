@@ -63,13 +63,13 @@ const NewDM = () => {
               className="text-neutral-400 font-light text-opacity-90 text-sm hover:text-neutral-100 cursor-pointer transition-all duration-300"
             />
           </TooltipTrigger>
-          <TooltipContent className="bg-[#1c1b1e] border-none mb-2 p-3 text-white">
+          <TooltipContent className="bg-[#1c1b1e] border-none mb-2 p-3 text-black">
             Select New Contact
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <Dialog open={openNewContactModal} onOpenChange={setOpenNewContactModal}>
-        <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[400px] flex flex-col">
+        <DialogContent className="bg-white text-black border-none rounded-lg w-[400px] flex flex-col">
           <DialogHeader>
             <DialogTitle>Select a contact</DialogTitle>
             <DialogDescription></DialogDescription>
@@ -77,7 +77,7 @@ const NewDM = () => {
           <div>
             <Input
               placeholder="Search Contacts"
-              className="rounded-lg p-6 bg-[#2c2e3b] border-none"
+              className="rounded-lg p-6 bg-gray-100 border-none"
               onChange={(e) => searchContacts(e.target.value)}
             />
           </div>
@@ -100,15 +100,11 @@ const NewDM = () => {
                             className="object-cover w-full h-full rounded-full bg-black"
                           />
                         ) : (
-                          <div
-                            className={`uppercase h-12 w-12 text-lg bg-gray-400 border-[1px] flex items-center justify-center rounded-full ${getColor(
-                              contact.color
-                            )}`}
-                          >
-                            {contact.firstName
-                              ? contact.firstName.split("").shift()
-                              : contact.email.split("").shift()}
-                          </div>
+                          <AvatarImage
+                            src={`/src/assets/empty.jpg`}
+                            alt="profile"
+                            className="object-cover w-full h-full rounded-full bg-black"
+                          />
                         )}
                       </Avatar>
                     </div>
@@ -127,10 +123,10 @@ const NewDM = () => {
           )}
           {searchedContacts.length <= 0 && (
             <div className="flex-1 mt-5 md:mt-0 md:flex flex-col justify-center items-center duration-1000 transition-all">
-              <div className="text-opacity-80 text-white flex flex-col gap-5 items-center mt-5 lg:text-2xl text-xl transition-all duration-300 text-center">
-                <h3 className="poppins-medium">
+              <div className="text-opacity-80 text-black flex flex-col gap-5 items-center mt-5 lg:text-xl text-lg transition-all duration-300 text-center">
+                <h3 className="nunito-font ">
                   Search new
-                  <span className="text-purple-500"> Contact</span>
+                  <span className="text-blue-600"> Contact</span>
                 </h3>
               </div>
             </div>

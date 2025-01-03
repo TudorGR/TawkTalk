@@ -1,3 +1,5 @@
+"use client";
+
 import { Command as CommandPrimitive, useCommandState } from "cmdk";
 import { X } from "lucide-react";
 import * as React from "react";
@@ -270,7 +272,7 @@ const MultipleSelector = React.forwardRef(
                 <Badge
                   key={option.value}
                   className={cn(
-                    "data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground bg-blue-600 p-2",
+                    "data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground bg-purple-500 p-2",
                     "data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground",
                     badgeClassName
                   )}
@@ -294,7 +296,7 @@ const MultipleSelector = React.forwardRef(
                     }}
                     onClick={() => handleUnselect(option)}
                   >
-                    <X className="h-4 w-4 text-white" />
+                    <X className="h-4 w-4 text-white hover:text-purple-500" />
                   </button>
                 </Badge>
               );

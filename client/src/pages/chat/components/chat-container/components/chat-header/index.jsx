@@ -1,18 +1,26 @@
 import { useAppStore } from "@/store";
-import { RiCloseFill } from "react-icons/ri";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { HOST } from "@/utils/constants";
 import { getColor } from "@/lib/utils";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const ChatHeader = () => {
   const { closeChat, selectedChatData, selectedChatType, onlineUsers } =
     useAppStore();
 
   return (
-    <div className="h-[10vh] border-b-2 border-[#2f303b] flex items-center justify-between px-20">
-      <div className="flex gap-5 items-center w-full justify-between">
+    <div className="h-[80px] border border-l-0 border-r-0 border-t-0 border-b-1 border-gray-200 flex items-center justify-between px-8">
+      <div className="flex gap-5 items-center w-full justify-start">
+        <div className="flex items-center justify-center gap-5">
+          <button
+            onClick={closeChat}
+            className="text-neutral-500 focus:border-none"
+          >
+            <IoIosArrowRoundBack className="text-3xl text-black" />
+          </button>
+        </div>
         <div className="flex gap-3 items-center justify-center">
-          <div className="w-12 h-12 relative">
+          <div className="w-12 h-12 relative flex items-center justify-center">
             {selectedChatType === "contact" ? (
               <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                 {selectedChatData.image ? (
@@ -22,52 +30,47 @@ const ChatHeader = () => {
                     className="object-cover w-full h-full bg-black"
                   />
                 ) : (
-                  <div
-                    className={`uppercase h-12 w-12 text-lg bg-gray-400 border-[1px] flex items-center justify-center rounded-full ${getColor(
-                      selectedChatData.color
-                    )}`}
-                  >
-                    {selectedChatData.firstName
-                      ? selectedChatData.firstName.split("").shift()
-                      : selectedChatData.email.split("").shift()}
-                  </div>
+                  <AvatarImage
+                    src={"src/assets/empty.jpg"}
+                    alt="profile"
+                    className="object-cover w-full h-full"
+                  />
                 )}
               </Avatar>
             ) : (
-              <div className="bg-[#ffffff22] h-10 w-10 flex items-center justify-center rounded-full">
+              <div className="bg-[#ffffff22] h-12 w-12 flex items-center justify-center rounded-full">
                 #
               </div>
             )}
           </div>
-          <div className="flex flex-col">
-            {selectedChatType === "channel" && selectedChatData.name}
+          <div className="flex flex-col text-black">
+            {selectedChatType === "channel" && (
+              <>
+                <span>{selectedChatData.name}</span>
+                <span className="text-sm text-white/40">
+                  {selectedChatData.members.length + 1} members
+                </span>
+              </>
+            )}
             {selectedChatType === "contact" && selectedChatData.firstName
               ? `${selectedChatData.firstName} ${selectedChatData.lastName}`
               : selectedChatData.email}
             {selectedChatType === "contact" ? (
               onlineUsers.includes(selectedChatData._id) ? (
                 <span className=" flex items-center gap-1">
-                  <span className=" h-3 w-3 bg-green-700 rounded-full"></span>
-                  <span className="text-neutral-500">online</span>
+                  <span className=" h-3 w-3 bg-green-500 rounded-full"></span>
+                  <span className="text-black/30 text-sm">online</span>
                 </span>
               ) : (
                 <span className=" flex items-center gap-1">
                   <span className=" h-3 w-3 bg-red-700 rounded-full"></span>
-                  <span className="text-neutral-500">offline</span>
+                  <span className="text-black/30 text-sm">offline</span>
                 </span>
               )
             ) : (
               ""
             )}
           </div>
-        </div>
-        <div className="flex items-center justify-center gap-5">
-          <button
-            onClick={closeChat}
-            className="text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all"
-          >
-            <RiCloseFill className="text-3xl" />
-          </button>
         </div>
       </div>
     </div>
