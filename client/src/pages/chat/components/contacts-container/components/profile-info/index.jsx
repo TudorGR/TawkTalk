@@ -43,7 +43,7 @@ const ProfileInfo = () => {
           <Avatar className="h-12 w-12 rounded-full overflow-hidden">
             {userInfo.image ? (
               <AvatarImage
-                src={`${HOST}/${userInfo.image}`}
+                src={`https://tawktalk.onrender.com/${userInfo.image}`}
                 alt="profile"
                 className="object-cover w-full h-full bg-black"
               />

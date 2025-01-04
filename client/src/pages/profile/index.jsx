@@ -35,7 +35,7 @@ const Profile = () => {
       setSelectedColor(userInfo.selectedColor);
     }
     if (userInfo.image) {
-      setImage(`${HOST}/${userInfo.image}`);
+      setImage(`https://tawktalk.onrender.com/${userInfo.image}`);
     }
   }, [userInfo]);
 
