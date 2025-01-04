@@ -12,9 +12,9 @@ import setupSocket from "./socket.js";
 dotenv.config();
 const databaseURL = process.env.DATABASE_URL;
 
-mongoose
-  .connect(`${databaseURL}/chat-app`)
-  .then(() => {
+const startServer = async () => {
+  try {
+    await mongoose.connect(`${databaseURL}/chat-app`);
     console.log("DB connection Successful");
 
     const app = express();
@@ -46,7 +46,12 @@ mongoose
     });
 
     setupSocket(server);
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
-  });
+    process.exit(1);
+  }
+};
+
+startServer();
+
+export default startServer;
