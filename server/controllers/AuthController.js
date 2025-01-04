@@ -51,28 +51,30 @@ export const login = async (req, res, next) => {
     if (!email || !password) {
       return res.status(400).send("Email and password is required");
     }
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).send("User with this email doesn't exist");
-    }
-    const auth = await compare(password, user.password);
-    if (!auth) {
-      return res.status(400).send("Password incorrect");
-    }
-    // res.cookie("jwt", createToken(email, user.id), {
-    //   maxAge,
-    // });
+
+    // const user = await User.findOne({ email });
+    // if (!user) {
+    //   return res.status(400).send("User with this email doesn't exist");
+    // }
+
+    // const auth = await compare(password, user.password);
+    // if (!auth) {
+    //   return res.status(400).send("Password incorrect");
+    // }
+
+    res.cookie("jwt", createToken(email, user.id), {
+      maxAge,
+    });
     return res.status(200).json({
-      // user: {
-      //   id: user.id,
-      //   email: user.email,
-      //   profileSetup: user.profileSetup,
-      //   firstName: user.firstName,
-      //   lastName: user.lastName,
-      //   image: user.image,
-      //   color: user.color,
-      // },
-      message: "hello",
+      user: {
+        id: user.id,
+        email: user.email,
+        profileSetup: user.profileSetup,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        image: user.image,
+        color: user.color,
+      },
     });
   } catch (error) {
     console.log(error);
