@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "../models/UserModel.js";
+import User from "../models/userModel.js";
 import Message from "../models/MessagesModel.js";
 
 export const searchContacts = async (req, res, next) => {
