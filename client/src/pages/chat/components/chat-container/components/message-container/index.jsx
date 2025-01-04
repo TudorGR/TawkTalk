@@ -171,7 +171,7 @@ const MessageContainer = () => {
               }}
             >
               <img
-                src={`${HOST}/${message.fileUrl}`}
+                src={`$https://tawktalk.onrender.com/${message.fileUrl}`}
                 height={300}
                 width={300}
                 className="rounded-2xl ml-[-16px]"
@@ -237,7 +237,7 @@ const MessageContainer = () => {
                 }}
               >
                 <img
-                  src={`${HOST}/${message.fileUrl}`}
+                  src={`https://tawktalk.onrender.com/${message.fileUrl}`}
                   height={300}
                   width={300}
                   className="rounded-2xl ml-[-16px]"
@@ -261,7 +261,7 @@ const MessageContainer = () => {
             <Avatar className="h-8 w-8 rounded-full overflow-hidden">
               {message.sender.image ? (
                 <AvatarImage
-                  src={`${HOST}/${message.sender.image}`}
+                  src={`https://tawktalk.onrender.com/${message.sender.image}`}
                   alt="profile"
                   className="object-cover w-full h-full bg-black"
                 />
@@ -304,7 +304,7 @@ const MessageContainer = () => {
         <div className="transition-all duration-300 fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg">
           <div>
             <img
-              src={`${HOST}/${imageURL}`}
+              src={`https://tawktalk.onrender.com/${imageURL}`}
               className="h-[80vh] w-full object-contain"
             />
           </div>
