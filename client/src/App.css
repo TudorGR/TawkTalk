@@ -4,9 +4,6 @@
   padding: 2rem;
   text-align: center;
 }
-*:focus {
-  outline: none;
-}
 
 .logo {
   height: 6em;

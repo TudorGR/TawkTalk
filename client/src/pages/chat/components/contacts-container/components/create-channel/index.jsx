@@ -86,7 +86,7 @@ const CreateChannel = () => {
         </Tooltip>
       </TooltipProvider>
       <Dialog open={newChannelModal} onOpenChange={setNewChannelModal}>
-        <DialogContent className="bg-white border-none text-black w-[400px] rounded-lg flex flex-col">
+        <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[400px] flex flex-col">
           <DialogHeader>
             <DialogTitle>Set up the new group</DialogTitle>
             <DialogDescription></DialogDescription>
@@ -94,14 +94,14 @@ const CreateChannel = () => {
           <div>
             <Input
               placeholder="Group name"
-              className="rounded-lg  bg-gray-100 border-none outline-none"
+              className="rounded-lg p-6 bg-[#2c2e3b] border-none"
               onChange={(e) => setChannelName(e.target.value)}
               value={channelName}
             />
           </div>
           <div>
             <MultipleSelector
-              className="rounded-lg bg-gray-100 border-none text-black text-md"
+              className="rounded-lg bg-[#2c2e3b] border-none py-2 text-white"
               defaultOptions={allContacts}
               placeholder="Search contacts"
               value={selectedContacts}
@@ -116,7 +116,7 @@ const CreateChannel = () => {
           <div>
             <Button
               onClick={createChannel}
-              className="w-full bg-blue-600 hover:bg-blue-800 transition-all duration-300"
+              className="w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300"
             >
               Create Group
             </Button>

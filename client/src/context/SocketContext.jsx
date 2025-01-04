@@ -18,6 +18,9 @@ export const SocketProvider = ({ children }) => {
         // withCredentials: true,
         query: { userId: userInfo.id },
       });
+      socket.current.on("connect", () => {
+        console.log("connected to socket server");
+      });
 
       socket.current.on("online-users", (onlineUsers) => {
         setOnlineUsers(onlineUsers);
@@ -32,16 +35,14 @@ export const SocketProvider = ({ children }) => {
         } = useAppStore.getState();
 
         if (
-          selectedChatData &&
-          ((selectedChatType !== undefined &&
+          (selectedChatType !== undefined &&
             selectedChatData._id === message.sender._id) ||
-            selectedChatData._id === message.recipient._id)
+          selectedChatData._id === message.recipient._id
         ) {
           addMessage(message);
         }
         addContactsInDMContacts(message);
       };
-
       const handleReceiveChannelMessage = (message) => {
         const {
           selectedChatData,
@@ -51,7 +52,6 @@ export const SocketProvider = ({ children }) => {
         } = useAppStore.getState();
 
         if (
-          selectedChatData &&
           selectedChatType !== undefined &&
           selectedChatData._id === message.channelId
         ) {

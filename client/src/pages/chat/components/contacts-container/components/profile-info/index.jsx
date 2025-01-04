@@ -13,7 +13,6 @@ import {
 import { FiEdit2 } from "react-icons/fi";
 import { IoPowerSharp } from "react-icons/io5";
 import { apiClient } from "@/lib/api-client";
-import { IoLogOutOutline } from "react-icons/io5";
 
 const ProfileInfo = () => {
   const { userInfo, setUserInfo } = useAppStore();
@@ -28,7 +27,7 @@ const ProfileInfo = () => {
       );
       if (res.status === 200) {
         navigate("/auth");
-        setUserInfo(undefined);
+        setUserInfo(null);
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +35,7 @@ const ProfileInfo = () => {
   };
 
   return (
-    <div className="absolute top-0 h-[80px] flex items-center justify-between px-10 w-full bg-white gap-2">
+    <div className="absolute bottom-0 h-16 flex items-center justify-between px-10 w-full bg-[#2a2b33]">
       <div className="flex gap-3 items-center justify-center">
         <div className="w-12 h-12 relative">
           <Avatar className="h-12 w-12 rounded-full overflow-hidden">
@@ -47,15 +46,19 @@ const ProfileInfo = () => {
                 className="object-cover w-full h-full bg-black"
               />
             ) : (
-              <AvatarImage
-                src={"src/assets/empty.jpg"}
-                alt="profile"
-                className="object-cover w-full h-full"
-              />
+              <div
+                className={`uppercase h-12 w-12 text-lg bg-gray-400 border-[1px] flex items-center justify-center rounded-full ${getColor(
+                  userInfo.color
+                )}`}
+              >
+                {userInfo.firstName
+                  ? userInfo.firstName.split("").shift()
+                  : userInfo.email.split("").shift()}
+              </div>
             )}
           </Avatar>
         </div>
-        <div className="text-black">
+        <div>
           {userInfo.firstName && userInfo.lastName
             ? `${userInfo.firstName} ${userInfo.lastName}`
             : ""}
@@ -66,7 +69,7 @@ const ProfileInfo = () => {
           <Tooltip>
             <TooltipTrigger>
               <FiEdit2
-                className="text-black text-xl"
+                className="text-purple-500 text-xl font-medium"
                 onClick={() => navigate("/profile")}
               />
             </TooltipTrigger>
@@ -78,13 +81,13 @@ const ProfileInfo = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <IoLogOutOutline
-                className="text-black text-2xl"
+              <IoPowerSharp
+                className="text-red-500 text-xl font-medium"
                 onClick={logOut}
               />
             </TooltipTrigger>
             <TooltipContent className="bg-[#1c1b1e] border-none text-white">
-              Logout
+              Edit Profile
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

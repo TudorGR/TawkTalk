@@ -34,7 +34,11 @@ function App() {
     const getUserData = async () => {
       try {
         const res = await apiClient.get(GET_USER_INFO, {
+<<<<<<< HEAD
           // withCredentials: true,
+=======
+          withCredentials: true,
+>>>>>>> parent of 0396bcc (redesign + fixes)
         });
         if (res.status === 200 && res.data.id) {
           setUserInfo(res.data);
@@ -57,6 +61,10 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 0396bcc (redesign + fixes)
   return (
     <div>
       <BrowserRouter>
