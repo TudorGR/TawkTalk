@@ -1,6 +1,6 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { HOST } from "@/utils/constants";
+import { HOST } from "@/utils/constants.js";
 import { getColor } from "@/lib/utils";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
@@ -9,7 +9,7 @@ const ChatHeader = () => {
     useAppStore();
 
   return (
-    <div className="h-[80px] border border-l-0 border-r-0 border-t-0 border-b-1 border-gray-200 flex items-center justify-between px-8">
+    <div className="bg-white right-0 left-0 fixed md:static position top-0 h-[80px] border border-l-0 border-r-0 border-t-0 border-b-1 border-gray-200 flex items-center justify-between px-8">
       <div className="flex gap-5 items-center w-full justify-start">
         <div className="flex items-center justify-center gap-5">
           <button
@@ -38,7 +38,7 @@ const ChatHeader = () => {
                 )}
               </Avatar>
             ) : (
-              <div className="bg-[#ffffff22] h-12 w-12 flex items-center justify-center rounded-full">
+              <div className="bg-black/20 text-white h-12 w-12 flex items-center justify-center rounded-full">
                 #
               </div>
             )}
@@ -47,7 +47,7 @@ const ChatHeader = () => {
             {selectedChatType === "channel" && (
               <>
                 <span>{selectedChatData.name}</span>
-                <span className="text-sm text-white/40">
+                <span className="text-sm text-black/50">
                   {selectedChatData.members.length + 1} members
                 </span>
               </>

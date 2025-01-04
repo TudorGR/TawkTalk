@@ -1,8 +1,6 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "./ui/avatar";
-import { HOST } from "@/utils/constants";
-import { getColor } from "@/lib/utils";
-import { useEffect } from "react";
+import { HOST } from "@/utils/constants.js";
 
 const ContactList = ({ contacts, isChannel = false }) => {
   const {
@@ -30,8 +28,8 @@ const ContactList = ({ contacts, isChannel = false }) => {
           key={contact._id}
           className={`pl-10 py-2 transition-all duration-300 cursor-pointer ${
             selectedChatData && selectedChatData._id === contact._id
-              ? "bg-black/10 hover:bg-black/5"
-              : "hover:bg-black/5"
+              ? "bg-neutral-100 hover:bg-neutral-50"
+              : "hover:bg-neutral-50"
           }`}
           onClick={() => handleClick(contact)}
         >
@@ -59,7 +57,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
               </div>
             )}
             {isChannel && (
-              <div className="bg-[#ffffff22] h-10 w-10 flex items-center justify-center rounded-full">
+              <div className="bg-black/20 text-white h-10 w-10 flex items-center justify-center rounded-full">
                 #
               </div>
             )}

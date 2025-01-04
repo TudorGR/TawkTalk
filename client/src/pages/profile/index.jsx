@@ -14,7 +14,7 @@ import {
   HOST,
   REMOVE_PROFILE_IMAGE_ROUTE,
   UPDATE_PROFILE_ROUTE,
-} from "@/utils/constants";
+} from "@/utils/constants.js";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const Profile = () => {
@@ -175,7 +175,7 @@ const Profile = () => {
                 type="email"
                 disabled
                 value={userInfo.email}
-                className="text-sm md:text-base p-4 sm:p-6 rounded-lg  bg-gray-300 border-none"
+                className="focus:border-blue-500 block w-full rounded border px-3.5 py-2 shadow focus:outline-none"
               />
             </div>
             <div className="w-full">
@@ -185,7 +185,7 @@ const Profile = () => {
                 type="text"
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
-                className="rounded-lg text-sm md:text-base p-4 sm:p-6 bg-gray-100 border-none"
+                className="focus:border-blue-500 block w-full rounded border px-3.5 py-2 shadow focus:outline-none"
               />
             </div>
             <div className="w-full">
@@ -195,14 +195,14 @@ const Profile = () => {
                 type="text"
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
-                className="rounded-lg text-sm md:text-base p-4 sm:p-6 bg-gray-100 border-none"
+                className="focus:border-blue-500 block w-full rounded border px-3.5 py-2 shadow focus:outline-none"
               />
             </div>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full outline-none">
           <Button
-            className="h-12 w-full bg-blue-600 hover:bg-blue-800 rounded-xl transition-all duration-300"
+            className="ease-out focus:outline-none transition-all duration-150 active:scale-[98%] transform bg-blue-600 disabled:opacity-100 hover:bg-blue-800 w-full rounded p-3 text-white shadow"
             onClick={saveChanges}
           >
             Save Changes

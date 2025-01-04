@@ -11,7 +11,7 @@ import {
   CREATE_CHANNEL_ROUTE,
   GET_ALL_CONTACTS_ROUTE,
   HOST,
-} from "@/utils/constants";
+} from "@/utils/constants.js";
 import {
   Dialog,
   DialogContent,
@@ -94,14 +94,14 @@ const CreateChannel = () => {
           <div>
             <Input
               placeholder="Group name"
-              className="rounded-lg  bg-gray-100 border-none outline-none"
+              className="focus:border-blue-500 block w-full rounded border px-3.5 py-2 shadow focus:outline-none"
               onChange={(e) => setChannelName(e.target.value)}
               value={channelName}
             />
           </div>
           <div>
             <MultipleSelector
-              className="rounded-lg bg-gray-100 border-none text-black text-md"
+              className="text-base focus:border-blue-500 block w-full rounded border shadow focus:outline-none"
               defaultOptions={allContacts}
               placeholder="Search contacts"
               value={selectedContacts}
@@ -116,7 +116,7 @@ const CreateChannel = () => {
           <div>
             <Button
               onClick={createChannel}
-              className="w-full bg-blue-600 hover:bg-blue-800 transition-all duration-300"
+              className="ease-out focus:outline-none transition-all duration-150 active:scale-[98%] transform bg-blue-600 disabled:opacity-100 hover:bg-blue-800 w-full rounded p-3 text-white shadow"
             >
               Create Group
             </Button>

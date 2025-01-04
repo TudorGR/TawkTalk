@@ -4,7 +4,7 @@ import {
   GET_ALL_MESSAGES_ROUTE,
   GET_CHANNEL_MESSAGES_ROUTE,
   HOST,
-} from "@/utils/constants";
+} from "@/utils/constants.js";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { MdFolderZip } from "react-icons/md";
@@ -296,7 +296,7 @@ const MessageContainer = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto no-scrollbar p-6  w-full">
+    <div className="pt-24 pb-24 md:pb-6 md:pt-6 flex-1 overflow-y-auto no-scrollbar p-6  w-full">
       {renderMessages()}
       <div ref={scrollRef} />
       {showImage && (

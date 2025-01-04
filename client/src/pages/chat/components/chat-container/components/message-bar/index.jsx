@@ -1,7 +1,7 @@
 import { useSocket } from "@/context/SocketContext";
 import { apiClient } from "@/lib/api-client";
 import { useAppStore } from "@/store";
-import { UPLOAD_FILE_ROUTE } from "@/utils/constants";
+import { UPLOAD_FILE_ROUTE } from "@/utils/constants.js";
 import EmojiPicker from "emoji-picker-react";
 import { useState, useRef, useEffect } from "react";
 import { RiAttachment2 } from "react-icons/ri";
@@ -116,7 +116,7 @@ const MessageBar = () => {
   };
 
   return (
-    <div className="border border-t-1 border-l-0 border-r-0 border-b-0 border-gray-200 h-[80px] flex justify-center items-center px-[3vh] gap-4">
+    <div className="fixed bottom-0 right-0 left-0 bg-white md:static border border-t-1 border-l-0 border-r-0 border-b-0 border-gray-200 h-[80px] flex justify-center items-center px-[3vh] gap-4">
       <div className="flex-1 flex bg-gray-100 rounded-full items-center gap-5 px-3">
         <div className="relative flex items-center justify-center">
           <button

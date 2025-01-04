@@ -7,6 +7,7 @@ import { apiClient } from "@/lib/api-client";
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "@/store";
+import loadingGif from "@/assets/loading.gif";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateLogin = () => {
     if (!email.length) {
@@ -45,15 +47,26 @@ const Auth = () => {
 
   const handleLogin = async () => {
     if (validateLogin()) {
-      const res = await apiClient.post(
-        LOGIN_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
-      if (res.data.user.id) {
-        setUserInfo(res.data.user);
-        if (res.data.user.profileSetup) navigate("/chat");
-        else navigate("/profile");
+      setIsLoading(true);
+      try {
+        const res = await apiClient.post(
+          LOGIN_ROUTE,
+          { email, password },
+          { withCredentials: true }
+        );
+        if (res.data.user.id) {
+          setUserInfo(res.data.user);
+          if (res.data.user.profileSetup) navigate("/chat");
+          else navigate("/profile");
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          toast.error("Invalid email or password");
+        } else {
+          console.log(error);
+        }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -112,10 +125,20 @@ const Auth = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button
-                  className="bg-blue-600 hover:bg-blue-800 mt-4 w-full rounded p-3 text-white shadow"
+                  className="ease-out transition-all duration-150 active:scale-[98%] transform bg-blue-600 disabled:opacity-100 hover:bg-blue-800 mt-4 w-full rounded p-3 text-white shadow"
                   onClick={handleLogin}
+                  disabled={isLoading}
                 >
-                  Login
+                  <img
+                    src={loadingGif}
+                    alt="Loading"
+                    className={`h-6 w-6 opacity-50 ${
+                      isLoading ? "block" : "hidden"
+                    }`}
+                  />
+                  <span className={`${isLoading ? "hidden" : "block"}`}>
+                    Login
+                  </span>
                 </Button>
               </TabsContent>
               <TabsContent className="flex flex-col gap-5" value="signup">
@@ -141,10 +164,20 @@ const Auth = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 <Button
-                  className="bg-blue-600 hover:bg-blue-800 mt-4 w-full rounded p-3 text-white shadow"
+                  className="ease-out transition-all duration-150 active:scale-[98%] transform bg-blue-600 disabled:opacity-100 hover:bg-blue-800 mt-4 w-full rounded p-3 text-white shadow"
                   onClick={handleSignup}
+                  disabled={isLoading}
                 >
-                  Signup
+                  <img
+                    src={loadingGif}
+                    alt="Loading"
+                    className={`h-6 w-6 opacity-50 ${
+                      isLoading ? "block" : "hidden"
+                    }`}
+                  />
+                  <span className={`${isLoading ? "hidden" : "block"}`}>
+                    Signup
+                  </span>
                 </Button>
               </TabsContent>
             </Tabs>

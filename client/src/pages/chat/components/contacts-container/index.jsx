@@ -5,7 +5,7 @@ import { apiClient } from "@/lib/api-client";
 import {
   GET_DM_CONTACTS_ROUTE,
   GET_USER_CHANNELS_ROUTE,
-} from "@/utils/constants";
+} from "@/utils/constants.js";
 import { useAppStore } from "@/store";
 import ContactList from "@/components/contact-list";
 import CreateChannel from "./components/create-channel";
@@ -55,7 +55,7 @@ const ContactsContainer = () => {
   });
 
   return (
-    <div className="h-screen relative md:w-[40vw] lg:w-[30vw] xl:w-[25vw] bg-white border border-r-1 border-gray-200 w-full">
+    <div className="h-screen relative md:w-[40vw] lg:w-[30vw] xl:w-[25vw] bg-white border border-r-1 border-t-0 border-b-0 border-gray-200 w-full">
       <ProfileInfo />
 
       <Tabs

@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { HOST } from "@/utils/constants";
+import { HOST } from "@/utils/constants.js";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { apiClient } from "@/lib/api-client";
-import { SEARCH_CONTACTS_ROUTE } from "@/utils/constants";
+import { SEARCH_CONTACTS_ROUTE } from "@/utils/constants.js";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAppStore } from "@/store";
 import { getColor } from "@/lib/utils";
@@ -77,7 +77,7 @@ const NewDM = () => {
           <div>
             <Input
               placeholder="Search Contacts"
-              className="rounded-lg p-6 bg-gray-100 border-none"
+              className="text-base focus:border-blue-500 block w-full rounded border shadow focus:outline-none"
               onChange={(e) => searchContacts(e.target.value)}
             />
           </div>
@@ -120,16 +120,6 @@ const NewDM = () => {
                 ))}
               </div>
             </ScrollArea>
-          )}
-          {searchedContacts.length <= 0 && (
-            <div className="flex-1 mt-5 md:mt-0 md:flex flex-col justify-center items-center duration-1000 transition-all">
-              <div className="text-opacity-80 text-black flex flex-col gap-5 items-center mt-5 lg:text-xl text-lg transition-all duration-300 text-center">
-                <h3 className="nunito-font ">
-                  Search new
-                  <span className="text-blue-600"> Contact</span>
-                </h3>
-              </div>
-            </div>
           )}
         </DialogContent>
       </Dialog>
