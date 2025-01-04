@@ -12,12 +12,13 @@ import setupSocket from "./socket.js";
 dotenv.config();
 const databaseURL = process.env.DATABASE_URL;
 
+const app = express();
+
 const startServer = async () => {
   try {
     await mongoose.connect(`${databaseURL}/chat-app`);
     console.log("DB connection Successful");
 
-    const app = express();
     const port = process.env.PORT || 4000;
 
     app.use(
@@ -54,4 +55,4 @@ const startServer = async () => {
 
 startServer();
 
-export default startServer;
+export default app;
