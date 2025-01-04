@@ -171,7 +171,7 @@ const MessageContainer = () => {
               }}
             >
               <img
-                src={`$https://tawktalk.onrender.com/${message.fileUrl}`}
+                src={`${message.fileUrl}`}
                 height={300}
                 width={300}
                 className="rounded-2xl ml-[-16px]"
@@ -237,7 +237,7 @@ const MessageContainer = () => {
                 }}
               >
                 <img
-                  src={`https://tawktalk.onrender.com/${message.fileUrl}`}
+                  src={`${message.fileUrl}`}
                   height={300}
                   width={300}
                   className="rounded-2xl ml-[-16px]"
