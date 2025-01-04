@@ -52,10 +52,10 @@ export const login = async (req, res, next) => {
       return res.status(400).send("Email and password is required");
     }
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).send("User with this email doesn't exist");
-    }
+    // const user = await User.findOne({ email });
+    // if (!user) {
+    //   return res.status(400).send("User with this email doesn't exist");
+    // }
 
     // const auth = await compare(password, user.password);
     // if (!auth) {
