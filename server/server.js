@@ -16,7 +16,7 @@ const app = express();
 
 const startServer = async () => {
   try {
-    await mongoose.connect(`${databaseURL}`);
+    await mongoose.connect(databaseURL);
     console.log("DB connection Successful");
 
     const port = process.env.PORT || 4000;
