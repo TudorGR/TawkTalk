@@ -15,6 +15,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
 import { FaRegFile } from "react-icons/fa";
 import emptyImage from "@/assets/empty.jpg";
+import useDetectKeyboardOpen from "use-detect-keyboard-open";
 
 const MessageContainer = () => {
   const {
@@ -28,6 +29,7 @@ const MessageContainer = () => {
   } = useAppStore();
   const scrollRef = useRef();
   const scrollRef2 = useRef();
+  const isKeyboardOpen = useDetectKeyboardOpen();
   const [showImage, setShowImage] = useState(false);
   const [imageURL, setImageURL] = useState(null);
 
@@ -66,6 +68,12 @@ const MessageContainer = () => {
       else if (selectedChatType === "channel") getChannelMessages();
     }
   }, [selectedChatData, selectedChatType, setSelectedChatMessages]);
+
+  useEffect(() => {
+    if (isKeyboardOpen) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isKeyboardOpen]);
 
   useEffect(() => {
     if (
