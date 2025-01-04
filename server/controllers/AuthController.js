@@ -34,6 +34,17 @@ export const signup = async (req, res, next) => {
   }
 };
 
+export const lol = async (req, res, next) => {
+  try {
+    return res.status(201).json({
+      message: "hello",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
