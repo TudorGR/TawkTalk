@@ -5,6 +5,7 @@ import {
   getUserInfo,
   updateProfile,
   logOut,
+  lol,
 } from "../controllers/AuthController.js";
 import { verifyToken } from "../middlewares/AuthMiddleware.js";
 // import multer from "multer";
