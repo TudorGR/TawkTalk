@@ -297,7 +297,7 @@ const MessageContainer = () => {
   };
 
   return (
-    <div className="pt-24 pb-24 md:pb-6 md:pt-6 flex-1 overflow-y-auto no-scrollbar p-6  w-full">
+    <div className="pt-48 pb-48 md:pb-6 md:pt-6 flex-1 overflow-y-auto no-scrollbar p-6  w-full">
       {renderMessages()}
       <div ref={scrollRef} />
       {showImage && (
