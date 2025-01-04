@@ -1,0 +1,22 @@
+{
+  "name": "tawktalk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "npm run start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TudorGR/TawkTalk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TudorGR/TawkTalk/issues"
+  },
+  "homepage": "https://github.com/TudorGR/TawkTalk#readme"
+}
