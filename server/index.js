@@ -21,7 +21,7 @@ const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: [process.env.ORIGIN],
+    origin: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
