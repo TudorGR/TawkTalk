@@ -13,10 +13,7 @@ dotenv.config();
 const databaseURL = process.env.DATABASE_URL;
 
 mongoose
-  .connect(databaseURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(`${databaseURL}/chat-app`)
   .then(() => {
     console.log("DB connection Successful");
 
