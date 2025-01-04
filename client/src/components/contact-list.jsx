@@ -2,6 +2,7 @@ import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { HOST } from "@/utils/constants";
 import { getColor } from "@/lib/utils";
+import { useEffect } from "react";
 
 const ContactList = ({ contacts, isChannel = false }) => {
   const {
@@ -29,8 +30,8 @@ const ContactList = ({ contacts, isChannel = false }) => {
           key={contact._id}
           className={`pl-10 py-2 transition-all duration-300 cursor-pointer ${
             selectedChatData && selectedChatData._id === contact._id
-              ? "bg-[#8417ff] hover:bg-[#8417ff]"
-              : "hover:bg-[#f1f1f111]"
+              ? "bg-black/10 hover:bg-black/5"
+              : "hover:bg-black/5"
           }`}
           onClick={() => handleClick(contact)}
         >
@@ -45,21 +46,15 @@ const ContactList = ({ contacts, isChannel = false }) => {
                       className="object-cover w-full h-full bg-black"
                     />
                   ) : (
-                    <div
-                      className={`${
-                        selectedChatData && selectedChatData._id === contact._id
-                          ? "bg-[ffffff22]"
-                          : `${getColor(contact.color)}`
-                      } uppercase h-10 w-10 text-lg bg-gray-400 border-[1px] flex items-center justify-center rounded-full `}
-                    >
-                      {contact.firstName
-                        ? contact.firstName.split("").shift()
-                        : contact.email.split("").shift()}
-                    </div>
+                    <AvatarImage
+                      src={"src/assets/empty.jpg"}
+                      alt="profile"
+                      className="object-cover w-full h-full"
+                    />
                   )}
                 </Avatar>
                 {onlineUsers.includes(contact._id) && (
-                  <span className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
+                  <span className=" absolute bottom-0 right-0 h-3 w-3 bg-green-500 rounded-full border-1 border-white"></span>
                 )}
               </div>
             )}
@@ -68,15 +63,20 @@ const ContactList = ({ contacts, isChannel = false }) => {
                 #
               </div>
             )}
-            {isChannel ? (
-              <span>{contact.name}</span>
-            ) : (
-              <span>
-                {contact.firstName
-                  ? `${contact.firstName} ${contact.lastName}`
-                  : contact.email}
+            <div className="flex flex-col text-black">
+              {isChannel ? (
+                <span>{contact.name}</span>
+              ) : (
+                <span>
+                  {contact.firstName
+                    ? `${contact.firstName} ${contact.lastName}`
+                    : contact.email}
+                </span>
+              )}
+              <span className="text-sm text-gray-500">
+                {contact.latestMessage}
               </span>
-            )}
+            </div>
           </div>
         </div>
       ))}

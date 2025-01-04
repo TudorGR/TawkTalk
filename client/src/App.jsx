@@ -27,44 +27,6 @@ const AuthRoute = ({ children }) => {
 };
 
 function App() {
-  const { userInfo, setUserInfo } = useAppStore();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const res = await apiClient.get(GET_USER_INFO, {
-<<<<<<< HEAD
-          // withCredentials: true,
-=======
-          withCredentials: true,
->>>>>>> parent of 0396bcc (redesign + fixes)
-        });
-        if (res.status === 200 && res.data.id) {
-          setUserInfo(res.data);
-        } else {
-          setUserInfo(undefined);
-        }
-      } catch (error) {
-        setUserInfo(undefined);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (!userInfo) {
-      getUserData();
-    } else {
-      setLoading(false);
-    }
-  }, [userInfo, setUserInfo]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 0396bcc (redesign + fixes)
   return (
     <div>
       <BrowserRouter>
