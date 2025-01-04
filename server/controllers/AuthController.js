@@ -57,10 +57,10 @@ export const login = async (req, res, next) => {
     //   return res.status(400).send("User with this email doesn't exist");
     // }
 
-    // const auth = await compare(password, user.password);
-    // if (!auth) {
-    //   return res.status(400).send("Password incorrect");
-    // }
+    const auth = await compare(password, user.password);
+    if (!auth) {
+      return res.status(400).send("Password incorrect");
+    }
 
     // res.cookie("jwt", createToken(email, user.id), {
     //   maxAge,
