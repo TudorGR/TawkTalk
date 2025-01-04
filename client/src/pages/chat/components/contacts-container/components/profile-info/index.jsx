@@ -23,8 +23,8 @@ const ProfileInfo = () => {
     try {
       const res = await apiClient.post(
         LOGOUT_ROUTE,
-        {},
-        { withCredentials: true }
+        {}
+        // { withCredentials: true }
       );
       if (res.status === 200) {
         navigate("/auth");

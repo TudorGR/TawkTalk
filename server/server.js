@@ -15,8 +15,14 @@ const app = express();
 const port = process.env.PORT || 4000;
 const databaseURL = process.env.DATABASE_URL;
 
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 // app.use("/uploads/profiles", express.static("uploads/profiles"));

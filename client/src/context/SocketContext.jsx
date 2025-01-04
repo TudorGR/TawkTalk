@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (userInfo) {
       socket.current = io(HOST, {
-        withCredentials: true,
+        // withCredentials: true,
         query: { userId: userInfo.id },
       });
 

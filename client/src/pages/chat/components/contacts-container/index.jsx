@@ -24,7 +24,7 @@ const ContactsContainer = () => {
   useEffect(() => {
     const getContacts = async () => {
       const res = await apiClient.get(GET_DM_CONTACTS_ROUTE, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       if (res.data.contacts) {
         setDirectMessagesContacts(res.data.contacts);
@@ -33,7 +33,7 @@ const ContactsContainer = () => {
 
     const getChannels = async () => {
       const res = await apiClient.get(GET_USER_CHANNELS_ROUTE, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       if (res.data.channels) {
         setChannels(res.data.channels);

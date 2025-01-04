@@ -35,8 +35,8 @@ const MessageContainer = () => {
       try {
         const res = await apiClient.post(
           GET_ALL_MESSAGES_ROUTE,
-          { id: selectedChatData._id },
-          { withCredentials: true }
+          { id: selectedChatData._id }
+          // { withCredentials: true }
         );
         if (res.data.messages) {
           setSelectedChatMessages(res.data.messages);
@@ -49,8 +49,8 @@ const MessageContainer = () => {
     const getChannelMessages = async () => {
       try {
         const res = await apiClient.get(
-          `${GET_CHANNEL_MESSAGES_ROUTE}/${selectedChatData._id}`,
-          { withCredentials: true }
+          `${GET_CHANNEL_MESSAGES_ROUTE}/${selectedChatData._id}`
+          // { withCredentials: true }
         );
         if (res.data.messages) {
           setSelectedChatMessages(res.data.messages);

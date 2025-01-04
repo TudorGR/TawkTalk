@@ -40,7 +40,7 @@ const CreateChannel = () => {
   useEffect(() => {
     const getData = async () => {
       const res = await apiClient.get(GET_ALL_CONTACTS_ROUTE, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       setAllContacts(res.data.contacts);
     };
@@ -55,8 +55,8 @@ const CreateChannel = () => {
           {
             name: channelName,
             members: selectedContacts.map((contact) => contact.value),
-          },
-          { withCredentials: true }
+          }
+          // { withCredentials: true }
         );
         if (res.status === 201) {
           setChannelName("");

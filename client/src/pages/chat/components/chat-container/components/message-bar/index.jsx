@@ -82,7 +82,7 @@ const MessageBar = () => {
         formData.append("file", file);
         setIsUploading(true);
         const res = await apiClient.post(UPLOAD_FILE_ROUTE, formData, {
-          withCredentials: true,
+          // withCredentials: true,
           onUploadProgress: (data) => {
             setFileUploadProgress(Math.round((100 * data.loaded) / data.total));
           },
