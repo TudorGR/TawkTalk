@@ -7,7 +7,7 @@ import {
   addProfileImage,
   removeProfileImage,
   logOut,
-} from "../controllers/authController.js";
+} from "../controllers/AuthController.js";
 import { verifyToken } from "../middlewares/AuthMiddleware.js";
 import multer from "multer";
 
