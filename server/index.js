@@ -53,6 +53,6 @@ const server = app.listen(port, () => {
 setupSocket(server);
 
 mongoose
-  .connect(databaseURL)
+  .connect(`${databaseURL}/chat-app`)
   .then(() => console.log("DB connection Successful"))
   .catch((error) => console.log(error.message));
