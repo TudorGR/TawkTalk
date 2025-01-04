@@ -17,13 +17,13 @@ import { GET_USER_INFO } from "./utils/constants";
 const PrivateRoute = ({ children }) => {
   const { userInfo } = useAppStore();
   const isAuthenticated = !!userInfo;
-  return isAuthenticated ? children : <Navigate to="./auth" />;
+  return isAuthenticated ? children : <Navigate to="/auth" />;
 };
 
 const AuthRoute = ({ children }) => {
   const { userInfo } = useAppStore();
   const isAuthenticated = !!userInfo;
-  return isAuthenticated ? <Navigate to="./chat" /> : children;
+  return isAuthenticated ? <Navigate to="/chat" /> : children;
 };
 
 function App() {
