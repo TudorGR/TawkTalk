@@ -47,15 +47,15 @@ export const lol = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).send("Email and password is required");
-    }
-
-    // const user = await User.findOne({ email });
-    // if (!user) {
-    //   return res.status(400).send("User with this email doesn't exist");
+    // const { email, password } = req.body;
+    // if (!email || !password) {
+    //   return res.status(400).send("Email and password is required");
     // }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).send("User with this email doesn't exist");
+    }
 
     // const auth = await compare(password, user.password);
     // if (!auth) {
