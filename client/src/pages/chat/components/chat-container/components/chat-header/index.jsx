@@ -10,7 +10,7 @@ const ChatHeader = () => {
     useAppStore();
 
   return (
-    <div className="bg-white right-0 left-0 fixed md:static position top-0 h-[80px] border border-l-0 border-r-0 border-t-0 border-b-1 border-gray-200 flex items-center justify-between px-8">
+    <div className="z-20 bg-white right-0 left-0 fixed md:static position top-0 h-[80px] border border-l-0 border-r-0 border-t-0 border-b-1 border-gray-200 flex items-center justify-between px-8">
       <div className="flex gap-5 items-center w-full justify-start">
         <div className="flex items-center justify-center gap-5">
           <button
