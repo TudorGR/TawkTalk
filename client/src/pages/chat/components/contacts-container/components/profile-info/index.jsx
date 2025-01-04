@@ -14,6 +14,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { IoPowerSharp } from "react-icons/io5";
 import { apiClient } from "@/lib/api-client";
 import { IoLogOutOutline } from "react-icons/io5";
+import emptyImage from "@/assets/empty.jpg";
 
 const ProfileInfo = () => {
   const { userInfo, setUserInfo } = useAppStore();
@@ -48,7 +49,7 @@ const ProfileInfo = () => {
               />
             ) : (
               <AvatarImage
-                src={"src/assets/empty.jpg"}
+                src={emptyImage}
                 alt="profile"
                 className="object-cover w-full h-full"
               />

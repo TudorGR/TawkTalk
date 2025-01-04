@@ -3,6 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { HOST } from "@/utils/constants.js";
 import { getColor } from "@/lib/utils";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import emptyImage from "@/assets/empty.jpg";
 
 const ChatHeader = () => {
   const { closeChat, selectedChatData, selectedChatType, onlineUsers } =
@@ -31,7 +32,7 @@ const ChatHeader = () => {
                   />
                 ) : (
                   <AvatarImage
-                    src={"src/assets/empty.jpg"}
+                    src={emptyImage}
                     alt="profile"
                     className="object-cover w-full h-full"
                   />

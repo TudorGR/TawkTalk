@@ -21,6 +21,7 @@ import { SEARCH_CONTACTS_ROUTE } from "@/utils/constants.js";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAppStore } from "@/store";
 import { getColor } from "@/lib/utils";
+import emptyImage from "@/assets/empty.jpg";
 
 const NewDM = () => {
   const [openNewContactModal, setOpenNewContactModal] = useState(false);
@@ -101,7 +102,7 @@ const NewDM = () => {
                           />
                         ) : (
                           <AvatarImage
-                            src={`/src/assets/empty.jpg`}
+                            src={emptyImage}
                             alt="profile"
                             className="object-cover w-full h-full rounded-full bg-black"
                           />

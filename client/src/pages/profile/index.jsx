@@ -16,6 +16,7 @@ import {
   UPDATE_PROFILE_ROUTE,
 } from "@/utils/constants.js";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import emptyImage from "@/assets/empty.jpg";
 
 const Profile = () => {
   const { userInfo, setUserInfo } = useAppStore();
@@ -140,7 +141,7 @@ const Profile = () => {
                 />
               ) : (
                 <AvatarImage
-                  src={"/src/assets/empty.jpg"}
+                  src={emptyImage}
                   alt="profile"
                   className="object-cover w-full h-full bg-black"
                 />

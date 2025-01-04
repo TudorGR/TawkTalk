@@ -14,6 +14,7 @@ import { AvatarFallback } from "@/components/ui/avatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
 import { FaRegFile } from "react-icons/fa";
+import emptyImage from "@/assets/empty.jpg";
 
 const MessageContainer = () => {
   const {
@@ -266,7 +267,7 @@ const MessageContainer = () => {
                 />
               ) : (
                 <AvatarImage
-                  src={"src/assets/empty.jpg"}
+                  src={emptyImage}
                   alt="profile"
                   className="object-cover w-full h-full"
                 />

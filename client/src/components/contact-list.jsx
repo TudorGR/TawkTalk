@@ -1,6 +1,7 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { HOST } from "@/utils/constants.js";
+import emptyImage from "@/assets/empty.jpg";
 
 const ContactList = ({ contacts, isChannel = false }) => {
   const {
@@ -11,7 +12,6 @@ const ContactList = ({ contacts, isChannel = false }) => {
     setSelectedChatMessages,
     onlineUsers,
   } = useAppStore();
-
   const handleClick = (contact) => {
     if (isChannel) setSelectedChatType("channel");
     else setSelectedChatType("contact");
@@ -45,7 +45,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
                     />
                   ) : (
                     <AvatarImage
-                      src={"src/assets/empty.jpg"}
+                      src={emptyImage}
                       alt="profile"
                       className="object-cover w-full h-full"
                     />
