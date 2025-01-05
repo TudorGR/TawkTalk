@@ -72,14 +72,25 @@ const Auth = () => {
   };
   const handleSignup = async () => {
     if (validateSignup()) {
-      const res = await apiClient.post(
-        SIGNUP_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
-      if (res.status === 201) {
-        setUserInfo(res.data.user);
-        navigate("/profile");
+      setIsLoading(true);
+      try {
+        const res = await apiClient.post(
+          SIGNUP_ROUTE,
+          { email, password },
+          { withCredentials: true }
+        );
+        if (res.status === 201) {
+          setUserInfo(res.data.user);
+          navigate("/profile");
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          toast.error("Email already exists");
+        } else {
+          console.log(error);
+        }
+      } finally {
+        setIsLoading(false);
       }
     }
   };

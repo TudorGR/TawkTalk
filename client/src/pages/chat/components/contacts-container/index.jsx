@@ -78,7 +78,7 @@ const ContactsContainer = () => {
         </TabsList>
         <div className="overflow-scroll h-full no-scrollbar">
           <TabsContent value="All">
-            <div className="my-5">
+            <div className="mt-5">
               <div className="flex items-center justify-center gap-4">
                 <p className="text-black/50">Groups</p>
               </div>
@@ -86,7 +86,7 @@ const ContactsContainer = () => {
                 <ContactList contacts={channels} isChannel={true} />
               </div>
             </div>
-            <div className="my-5">
+            <div className="mt-5">
               <div className="flex items-center justify-center gap-4">
                 <p className=" text-black/40">Contacts</p>
               </div>

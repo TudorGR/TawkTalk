@@ -17,6 +17,12 @@ export const signup = async (req, res, next) => {
     if (!email || !password) {
       return res.status(400).send("Email and password is required");
     }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).send("Email already exists");
+    }
+
     const user = await User.create({ email, password });
     res.cookie("jwt", createToken(email, user.id), {
       maxAge,

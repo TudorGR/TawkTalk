@@ -26,7 +26,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
       {contacts.map((contact) => (
         <div
           key={contact._id}
-          className={`pl-10 py-2 transition-all duration-300 cursor-pointer ${
+          className={`pl-8 py-2 transition-all duration-300 cursor-pointer ${
             selectedChatData && selectedChatData._id === contact._id
               ? "bg-neutral-100 hover:bg-neutral-50"
               : "hover:bg-neutral-50"
@@ -36,7 +36,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
           <div className="flex gap-5 items-center justify-start text-neutral-300">
             {!isChannel && (
               <div className="relative">
-                <Avatar className="h-10 w-10 rounded-full overflow-hidden">
+                <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                   {contact.image ? (
                     <AvatarImage
                       src={`https://tawktalk.onrender.com/${contact.image}`}
@@ -57,7 +57,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
               </div>
             )}
             {isChannel && (
-              <div className="bg-black/20 text-white h-10 w-10 flex items-center justify-center rounded-full">
+              <div className="bg-black/20 text-white h-12 w-12 flex items-center justify-center rounded-full">
                 #
               </div>
             )}

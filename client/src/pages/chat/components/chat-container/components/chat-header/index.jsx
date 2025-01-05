@@ -1,9 +1,7 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { HOST } from "@/utils/constants.js";
-import { getColor } from "@/lib/utils";
-import { IoIosArrowRoundBack } from "react-icons/io";
 import emptyImage from "@/assets/empty.jpg";
+import { IoIosArrowBack } from "react-icons/io";
 
 const ChatHeader = () => {
   const { closeChat, selectedChatData, selectedChatType, onlineUsers } =
@@ -17,7 +15,7 @@ const ChatHeader = () => {
             onClick={closeChat}
             className="text-neutral-500 focus:border-none"
           >
-            <IoIosArrowRoundBack className="text-3xl text-black" />
+            <IoIosArrowBack className="text-3xl text-black" />
           </button>
         </div>
         <div className="flex gap-3 items-center justify-center">
