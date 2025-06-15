@@ -4,6 +4,10 @@ A modern, responsive chat application built using React, Node.js, and Socket.io.
 
 Feel free to explore the app live at [TawkTalk](https://tawktalk.onrender.com/)!
 
+## Design
+
+![400161178-e6411d6d-f4fe-4eb8-9499-10b10babfc2e](https://github.com/user-attachments/assets/7a5d14e8-a66e-4976-9567-ac36c346491e)
+
 ## Features
 
 ### Frontend
@@ -102,4 +106,3 @@ The application is deployed and live at: [TawkTalk](https://tawktalk.onrender.co
 - Add voice and video call features.
 - Implement message reactions.
 - Enhance chat search functionality.
-
