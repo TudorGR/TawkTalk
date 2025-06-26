@@ -23,7 +23,6 @@ Feel free to explore the app live at [TawkTalk](https://tawktalk.onrender.com/)!
 - [Project Structure](#project-structure)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## 🎨 Design
