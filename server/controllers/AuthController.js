@@ -1,7 +1,8 @@
 import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
-import { renameSync, unlinkSync } from "fs";
+import cloudinary from "../config/cloudinary.js";
+import { unlinkSync } from "fs";
 
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
@@ -141,14 +142,25 @@ export const addProfileImage = async (req, res, next) => {
       return res.status(400).send("File is required");
     }
 
-    const date = Date.now();
-    let fileName = "uploads/profiles/" + date + req.file.originalname;
-    renameSync(req.file.path, fileName);
+    // Upload profile image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "tawktalk/profiles",
+      width: 500,
+      height: 500,
+      crop: "fill",
+      gravity: "face",
+      use_filename: true,
+      unique_filename: true,
+    });
+
+    // Delete the temporary file
+    unlinkSync(req.file.path);
 
     const userData = await User.findByIdAndUpdate(
       req.userId,
       {
-        image: fileName,
+        image: result.secure_url,
+        imagePublicId: result.public_id, // Store public_id for deletion
       },
       { new: true, runValidators: true }
     );
@@ -158,6 +170,16 @@ export const addProfileImage = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
+
+    // Clean up temp file if it exists
+    if (req.file && req.file.path) {
+      try {
+        unlinkSync(req.file.path);
+      } catch (cleanupError) {
+        console.log("Error cleaning up temp file:", cleanupError);
+      }
+    }
+
     return res.status(500).send("Internal Server Error");
   }
 };
@@ -171,11 +193,18 @@ export const removeProfileImage = async (req, res, next) => {
       return res.status(404).send("User not found");
     }
 
-    if (user.image) {
-      unlinkSync(user.image);
+    // Delete image from Cloudinary if it exists
+    if (user.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(user.imagePublicId);
+      } catch (cloudinaryError) {
+        console.log("Error deleting from Cloudinary:", cloudinaryError);
+      }
     }
 
+    // Update user in database
     user.image = null;
+    user.imagePublicId = null;
     await user.save();
 
     return res.status(200).send("Profile image removed");

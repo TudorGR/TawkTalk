@@ -1,5 +1,6 @@
 import MessageModel from "../models/MessagesModel.js";
-import { mkdirSync, rename, renameSync } from "fs";
+import cloudinary from "../config/cloudinary.js";
+import { unlinkSync } from "fs";
 
 export const getMessages = async (req, res, next) => {
   try {
@@ -30,17 +31,36 @@ export const uploadFile = async (req, res, next) => {
       return res.status(400).send("file is required");
     }
 
-    const date = Date.now();
-    let fileDir = `uploads/files/${date}`;
-    let fileName = `${fileDir}/${req.file.originalname}`;
+    // Upload file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "tawktalk/files",
+      resource_type: "auto", // Automatically detects file type (image, video, etc.)
+      use_filename: true,
+      unique_filename: true,
+    });
 
-    mkdirSync(fileDir, { recursive: true });
+    // Delete the temporary file
+    unlinkSync(req.file.path);
 
-    renameSync(req.file.path, fileName);
-
-    return res.status(200).json({ filePath: fileName });
+    return res.status(200).json({
+      filePath: result.secure_url,
+      publicId: result.public_id,
+      originalName: req.file.originalname,
+      fileSize: result.bytes,
+      fileType: result.resource_type,
+    });
   } catch (error) {
     console.log(error);
+
+    // Clean up temp file if it exists
+    if (req.file && req.file.path) {
+      try {
+        unlinkSync(req.file.path);
+      } catch (cleanupError) {
+        console.log("Error cleaning up temp file:", cleanupError);
+      }
+    }
+
     return res.status(500).send("Internal Server Error");
   }
 };

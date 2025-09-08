@@ -8,6 +8,7 @@ import contactsRoutes from "./routes/ContactRoutes.js";
 import setupSocket from "./socket.js";
 import messagesRoutes from "./routes/MessagesRoutes.js";
 import channelRoutes from "./routes/ChannelRoutes.js";
+import { initializeDirectories } from "./utils/fileUtils.js";
 
 import path from "path";
 
@@ -19,6 +20,9 @@ const databaseURL = process.env.DATABASE_URL;
 
 const __dirname = path.resolve();
 
+// Initialize required directories
+initializeDirectories();
+
 app.use(
   cors({
     origin: true,
@@ -27,8 +31,9 @@ app.use(
   })
 );
 
-app.use("/uploads/profiles", express.static("uploads/profiles"));
-app.use("/uploads/files", express.static("uploads/files"));
+// Remove static file serving for uploads since we're using Cloudinary now
+// app.use("/uploads/profiles", express.static("uploads/profiles"));
+// app.use("/uploads/files", express.static("uploads/files"));
 
 app.use(cookieParser());
 app.use(express.json());

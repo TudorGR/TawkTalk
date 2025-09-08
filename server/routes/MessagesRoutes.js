@@ -4,7 +4,7 @@ import { getMessages, uploadFile } from "../controllers/MessagesController.js";
 import multer from "multer";
 
 const messagesRoutes = Router();
-const upload = multer({ dest: "uploads/files" });
+const upload = multer({ dest: "temp/" }); // Use temp directory instead
 
 messagesRoutes.post("/get-messages", verifyToken, getMessages);
 messagesRoutes.post(
