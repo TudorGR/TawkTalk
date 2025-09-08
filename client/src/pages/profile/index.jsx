@@ -2,7 +2,7 @@ import { useAppStore } from "@/store";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { colors, getColor } from "@/lib/utils";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
@@ -29,13 +29,27 @@ const Profile = () => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    console.log("=== Profile useEffect Debug ===");
+    console.log("userInfo:", userInfo);
+
     if (userInfo.profileSetup) {
       setFirstName(userInfo.firstName);
       setLastName(userInfo.lastName);
       setSelectedColor(userInfo.selectedColor);
     }
     if (userInfo.image) {
-      setImage(`https://tawktalk.onrender.com/${userInfo.image}`);
+      console.log("User has image:", userInfo.image);
+      // Check if the image is already a full URL (Cloudinary) or needs the old HOST prefix
+      if (userInfo.image.startsWith("http")) {
+        console.log("Setting Cloudinary image:", userInfo.image);
+        setImage(userInfo.image); // Cloudinary URL
+      } else {
+        console.log("Setting legacy image:", `${HOST}/${userInfo.image}`);
+        setImage(`${HOST}/${userInfo.image}`); // Legacy local file
+      }
+    } else {
+      console.log("No image in userInfo, setting to null");
+      setImage(null);
     }
   }, [userInfo]);
 
@@ -85,20 +99,36 @@ const Profile = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      console.log("=== Image Upload Debug ===");
+      console.log("File selected:", file.name, file.type, file.size);
+
       const formData = new FormData();
       formData.append("profile-image", file);
-      const res = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
-        withCredentials: true,
-      });
-      if (res.status === 200 && res.data.image) {
-        setUserInfo({ ...userInfo, image: res.data.image });
-        toast.success("image updated successfully");
+
+      try {
+        console.log("Sending upload request...");
+        const res = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
+          withCredentials: true,
+        });
+
+        console.log("Upload response:", res.data);
+
+        if (res.status === 200 && res.data.image) {
+          console.log("Upload successful, new image URL:", res.data.image);
+          // Update the user store with the new Cloudinary URL
+          setUserInfo({ ...userInfo, image: res.data.image });
+          // Set the local image state with the Cloudinary URL
+          setImage(res.data.image);
+          toast.success("Image updated successfully");
+        } else {
+          console.log("Upload failed - invalid response");
+          toast.error("Failed to upload image");
+        }
+      } catch (error) {
+        console.log("Error uploading image:", error);
+        console.log("Error response:", error.response?.data);
+        toast.error("Failed to upload image");
       }
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -140,11 +170,13 @@ const Profile = () => {
                   className="object-cover w-full h-full bg-black"
                 />
               ) : (
-                <AvatarImage
-                  src={emptyImage}
-                  alt="profile"
-                  className="object-cover w-full h-full bg-black"
-                />
+                <AvatarFallback className="h-32 w-32 md:w-48 md:h-48 bg-gray-200 flex items-center justify-center">
+                  <img
+                    src={emptyImage}
+                    alt="default profile"
+                    className="object-cover w-full h-full"
+                  />
+                </AvatarFallback>
               )}
             </Avatar>
             {hovered && (

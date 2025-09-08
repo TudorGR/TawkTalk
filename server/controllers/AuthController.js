@@ -138,11 +138,29 @@ export const updateProfile = async (req, res, next) => {
 
 export const addProfileImage = async (req, res, next) => {
   try {
+    console.log("=== Profile Image Upload Debug ===");
+    console.log("File received:", req.file ? "Yes" : "No");
+
     if (!req.file) {
+      console.log("No file in request");
       return res.status(400).send("File is required");
     }
 
+    console.log("File details:", {
+      originalname: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      path: req.file.path,
+    });
+
+    console.log("Cloudinary config check:", {
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME ? "Set" : "Missing",
+      api_key: process.env.CLOUDINARY_API_KEY ? "Set" : "Missing",
+      api_secret: process.env.CLOUDINARY_API_SECRET ? "Set" : "Missing",
+    });
+
     // Upload profile image to Cloudinary
+    console.log("Starting Cloudinary upload...");
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "tawktalk/profiles",
       width: 500,
@@ -153,9 +171,18 @@ export const addProfileImage = async (req, res, next) => {
       unique_filename: true,
     });
 
+    console.log("Cloudinary upload result:", {
+      secure_url: result.secure_url,
+      public_id: result.public_id,
+      width: result.width,
+      height: result.height,
+    });
+
     // Delete the temporary file
     unlinkSync(req.file.path);
+    console.log("Temporary file deleted");
 
+    console.log("Updating user with ID:", req.userId);
     const userData = await User.findByIdAndUpdate(
       req.userId,
       {
@@ -165,16 +192,20 @@ export const addProfileImage = async (req, res, next) => {
       { new: true, runValidators: true }
     );
 
+    console.log("User updated, new image URL:", userData.image);
+
     return res.status(200).json({
       image: userData.image,
     });
   } catch (error) {
-    console.log(error);
+    console.log("=== Profile Image Upload Error ===");
+    console.log("Error details:", error);
 
     // Clean up temp file if it exists
     if (req.file && req.file.path) {
       try {
         unlinkSync(req.file.path);
+        console.log("Cleaned up temp file after error");
       } catch (cleanupError) {
         console.log("Error cleaning up temp file:", cleanupError);
       }
