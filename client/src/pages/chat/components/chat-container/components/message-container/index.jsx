@@ -5,6 +5,7 @@ import {
   GET_CHANNEL_MESSAGES_ROUTE,
   HOST,
 } from "@/utils/constants.js";
+import { getImageUrl } from "@/lib/imageUtils";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { MdFolderZip } from "react-icons/md";
@@ -269,7 +270,7 @@ const MessageContainer = () => {
             <Avatar className="h-8 w-8 rounded-full overflow-hidden">
               {message.sender.image ? (
                 <AvatarImage
-                  src={`https://tawktalk.onrender.com/${message.sender.image}`}
+                  src={getImageUrl(message.sender.image)}
                   alt="profile"
                   className="object-cover w-full h-full bg-black"
                 />
@@ -312,7 +313,7 @@ const MessageContainer = () => {
         <div className="transition-all duration-300 fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg">
           <div>
             <img
-              src={`https://tawktalk.onrender.com/${imageURL}`}
+              src={getImageUrl(imageURL)}
               className="h-[80vh] w-full object-contain"
             />
           </div>

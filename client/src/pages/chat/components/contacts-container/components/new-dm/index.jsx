@@ -8,6 +8,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { HOST } from "@/utils/constants.js";
+import { getImageUrl } from "@/lib/imageUtils";
 import {
   Dialog,
   DialogContent,
@@ -96,7 +97,7 @@ const NewDM = () => {
                       <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                         {contact.image ? (
                           <AvatarImage
-                            src={`https://tawktalk.onrender.com/${contact.image}`}
+                            src={getImageUrl(contact.image)}
                             alt="profile"
                             className="object-cover w-full h-full rounded-full bg-black"
                           />

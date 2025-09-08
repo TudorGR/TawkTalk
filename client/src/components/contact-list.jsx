@@ -1,6 +1,7 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { HOST } from "@/utils/constants.js";
+import { getImageUrl } from "@/lib/imageUtils";
 import emptyImage from "@/assets/empty.jpg";
 
 const ContactList = ({ contacts, isChannel = false }) => {
@@ -39,7 +40,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
                 <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                   {contact.image ? (
                     <AvatarImage
-                      src={`https://tawktalk.onrender.com/${contact.image}`}
+                      src={getImageUrl(contact.image)}
                       alt="profile"
                       className="object-cover w-full h-full bg-black"
                     />

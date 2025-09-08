@@ -1,5 +1,6 @@
 import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { getImageUrl } from "@/lib/imageUtils";
 import emptyImage from "@/assets/empty.jpg";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -24,7 +25,7 @@ const ChatHeader = () => {
               <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                 {selectedChatData.image ? (
                   <AvatarImage
-                    src={`https://tawktalk.onrender.com/${selectedChatData.image}`}
+                    src={getImageUrl(selectedChatData.image)}
                     alt="profile"
                     className="object-cover w-full h-full bg-black"
                   />

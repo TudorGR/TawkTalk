@@ -3,6 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 import { HOST, LOGOUT_ROUTE } from "@/utils/constants.js";
 import { getColor } from "@/lib/utils";
+import { getImageUrl } from "@/lib/imageUtils";
 import { useNavigate } from "react-router-dom";
 import {
   Tooltip,
@@ -43,7 +44,7 @@ const ProfileInfo = () => {
           <Avatar className="h-12 w-12 rounded-full overflow-hidden">
             {userInfo.image ? (
               <AvatarImage
-                src={`https://tawktalk.onrender.com/${userInfo.image}`}
+                src={getImageUrl(userInfo.image)}
                 alt="profile"
                 className="object-cover w-full h-full bg-black"
               />
